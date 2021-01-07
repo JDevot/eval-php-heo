@@ -29,6 +29,5 @@ class UserFixtures extends Fixture
         $user->setEmail('admin@test.com');
         $manager->persist($user);
         $manager->flush();
-   
     }
 }
