@@ -1,0 +1,5 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-sm btn-primary mt-3" type="submit">{{ button_label|default('Enregistré') }}</button>
+    <a href="{{ path('user_index') }}" class="btn btn-sm btn-info mt-3">Retour à la liste</a>
+{{ form_end(form) }}
