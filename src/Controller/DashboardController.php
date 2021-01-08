@@ -10,6 +10,7 @@ use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class DashboardController extends AbstractController
 {
@@ -20,6 +21,8 @@ class DashboardController extends AbstractController
     }
     /**
      * @Route("/dashboard", name="dashboard")
+     * @Security("is_granted('ROLE_ADMIN')")
+     *
      */
     public function index(UserRepository $userRepository, TicketRepository $ticket, DemandeRepository $demande): Response
     {

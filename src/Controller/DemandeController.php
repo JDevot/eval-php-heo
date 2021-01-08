@@ -18,7 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/demande")
-  * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_UTILISATEUR') or is_granted('ROLE_CUSTOMER')")
+ * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_UTILISATEUR') or is_granted('ROLE_CUSTOMER')")
  */
 class DemandeController extends AbstractController
 {
