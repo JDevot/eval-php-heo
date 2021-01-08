@@ -4,7 +4,7 @@
 ### Premiere installation ###
 composer install // permet de mettre tout les packets a jours.
 crée un virtual host, ou utilisé le serveur symfony.
-
+symfony serve
 ############ FIXTURES ##########
 php bin/console doctrine:fixtures:load
 commande pour lancer les fixtures
@@ -16,7 +16,7 @@ Les fixtures sont crée pour:
 - Entreprise
 
 #######################################################
-############## Compte #################################
+#################### Compte ###########################
 #######################################################
 Compte Admin:
 
