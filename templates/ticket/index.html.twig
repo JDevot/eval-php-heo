@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ticket index
+{% endblock %}
+{% block body %}
+	{% for message in app.flashes('error') %}
+		<div id="delete-error" class="alert alert-danger">{{ message }}</div>
+	{% endfor %}
+	{% for message in app.flashes('success') %}
+		<div id="delete-error" class="alert alert-success">{{ message }}</div>
+	{% endfor %}
+	<div class="container-fluid">
+		<h2>
+			Liste des tickets
+		</h2>
+		<div class="fade-in">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="card">
+						<div class="card-header">
+							<i class="fa fa-align-justify"></i>
+							Tableau ticket
+						</div>
+						<div class="card-body">
+							<table class="table table-reponsive-sm">
+								<thead>
+									<tr>
+										<th>
+											Numéro de demande
+										</th>
+										<th>Title</th>
+										<th>Content</th>
+										<th>Etat</th>
+										<th>Demande
+										</th>
+										<th width="10%">actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for ticket in tickets %}
+										<tr>
+											<td>
+												{{ticket.id}}
+											</td>
+											<td>{{ ticket.title }}</td>
+											<td>{{ ticket.content }}</td>
+											<td>{{ ticket.etat }}</td>
+											<td>{{ ticket.demande }}
+											</td>
+											<td>
+												<div class="row">
+												<div class="col-3">
+												<a class="btn btn-sm btn-primary" href="{{ path('ticket_show', {'id': ticket.id}) }}"><i class="cil-external-link"></i></a>
+												</div>
+												{% if (is_granted('ROLE_ADMIN'))  or (is_granted('ROLE_UTILISATEUR'))  %}
+												<div class="col-3">
+													<a class="btn btn-sm btn-info" href="{{ path('ticket_edit', {'id': ticket.id}) }}"><i class="cil-comment-square"></i></a>
+												</div>
+												{% endif %}
+													
+											</div>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

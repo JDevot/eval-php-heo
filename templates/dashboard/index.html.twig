@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard
+{% endblock %}
+{% block body %}
+	<div class="container-fluid">
+		<h2>
+			Tableau de bord
+		</h2>
+		<div class="fade-in">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="card">
+						<div class="card-header">
+							<i class="fa fa-align-justify"></i>
+							Tableau de bord
+						</div>
+						<div class="card-body">
+							<table class="table table-reponsive-sm">
+								<thead>
+									<tr>
+										<th>Nombre d'utilisateurs:</th>
+										<th>Nombre de tickets:</th>
+										<th>
+											Nombre de demandes:</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>{{  users | length }}</td>
+										<td>{{ tickets | length }}</td>
+										<td>{{ demandes | length }}
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

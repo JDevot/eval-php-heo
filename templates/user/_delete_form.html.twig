@@ -1,5 +1,10 @@
-<form method="post" action="{{ path('user_delete', {'id': user.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-    <input type="hidden" name="_method" value="DELETE">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-    <button class="btn btn-sm btn-danger mt-3">Delete</button>
+{% if template == 'utilisateur' %}
+	<form method="post" action="{{ path('user_delete', {'id': user.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+{% else %}
+	<form method="post" action="{{ path('client_delete', {'id': user.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+{% endif %}
+{{template}}
+	<input type="hidden" name="_method" value="DELETE">
+	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+	<button class="btn btn-sm btn-danger mt-3">Supprimer</button>
 </form>

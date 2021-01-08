@@ -37,15 +37,25 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity=Demande::class, mappedBy="user")
+     * @ORM\ManyToOne(targetEntity=Entreprise::class, inversedBy="client")
+     */
+    private $entreprise;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Demande::class, mappedBy="user")
      */
     private $demandes;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $actif;
+    
     public function __construct()
     {
         $this->demandes = new ArrayCollection();
     }
-
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -72,7 +82,12 @@ class User implements UserInterface
     {
         return (string) $this->email;
     }
-
+    public function setId($id): self
+    {
+        var_dump($id);
+        $this->id = $id;
+        return $this;
+    }
     /**
      * @see UserInterface
      */
@@ -114,7 +129,10 @@ class User implements UserInterface
     {
         // not needed when using the "bcrypt" algorithm in security.yaml
     }
-
+    public function __toString()
+    {
+        return $this->getUsername();
+    }
     /**
      * @see UserInterface
      */
@@ -150,6 +168,30 @@ class User implements UserInterface
                 $demande->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEntreprise(): ?Entreprise
+    {
+        return $this->entreprise;
+    }
+
+    public function setEntreprise(?Entreprise $entreprise): self
+    {
+        $this->entreprise = $entreprise;
+
+        return $this;
+    }
+
+    public function getActif(): ?bool
+    {
+        return $this->actif;
+    }
+
+    public function setActif(bool $actif): self
+    {
+        $this->actif = $actif;
 
         return $this;
     }

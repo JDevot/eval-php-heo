@@ -1,23 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modification {{ template }}
+{% block title %}New Demande
 {% endblock %}
 
 {% block body %}
 	<div class="container-fluid">
-		<h1>Modification d'un {{ template }}</h1>
+		<h1>Nouvelle demande</h1>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="card">
 					<div class="card-header">
-						<strong>Formulaire de modification d'un {{ template }}</strong>
+						<strong>Formulaire pour la création d'une nouvelle demande</strong>
 					</div>
 					<div class="card-body">
-						{{ include('user/_form.html.twig') }}
-						{{ include('user/_delete_form.html.twig') }}
+						{{ include('demande/_form.html.twig') }}
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>{% endblock %}
+</div>
+{% endblock %}

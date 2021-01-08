@@ -6,23 +6,31 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class SecurityController extends AbstractController
 {
+    protected $auth;
+
+    public function __construct(AuthorizationCheckerInterface $auth){
+        $this->auth = $auth;  
+    }
     /**
-     * @Route("/login", name="app_login")
+     * @Route("/", name="app_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
-    {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
-
+    {   
+        if ($this->getUser()) {
+            if($this->auth->isGranted('ROLE_ADMIN')){
+                return $this->redirectToRoute('dashboard');
+            } else {
+                return $this->redirectToRoute('ticket_index'); 
+            }
+        }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-
+        
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 

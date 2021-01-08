@@ -1,23 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modification {{ template }}
+{% block title %}New Entreprise
 {% endblock %}
 
 {% block body %}
 	<div class="container-fluid">
-		<h1>Modification d'un {{ template }}</h1>
+		<h1>Nouvelle entreprise</h1>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="card">
 					<div class="card-header">
-						<strong>Formulaire de modification d'un {{ template }}</strong>
+						<strong>Formulaire d'inscription d'une nouvelle entreprise</strong>
 					</div>
 					<div class="card-body">
-						{{ include('user/_form.html.twig') }}
-						{{ include('user/_delete_form.html.twig') }}
+						{{ include('entreprise/_form.html.twig') }}
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>{% endblock %}
+</div>
+<a href="{{ path('entreprise_index') }}"><i class="cib-nextdoor"></i></a>
+{% endblock %}

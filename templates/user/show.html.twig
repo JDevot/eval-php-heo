@@ -1,41 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Utilisateur
+{% block title %}
+	{{ template }}
 {% endblock %}
 
 {% block body %}
-	<div class="container-fluid">
-		<h2>
-			Fiche Utilisateur
-		</h2>
-		<div class="fade-in">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="card">
-						<div class="card-header">
-							<i class="fa fa-align-justify"></i>
-							Fiche utilisateur
-						</div>
-						<div class="card-body">
-							<table class="table table-reponsive-sm">
-								<thead>
-									<tr>
-										<th>Email</th>
-										<th>Roles</th>
-										<th>Password</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>{{ user.email }}</td>
-										<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-										<td>{{ user.password }}</td>
+<div class="container-fluid">
+	<h2>
+		Fiche
+		{{ template }}
+	</h2>
+	<div class="fade-in">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="card-header">
+						<i class="fa fa-align-justify"></i>
+						Fiche{{ template }}
+					</div>
+					<div class="card-body">
+						<table class="table table-reponsive-sm">
+							<thead>
+								<tr>
+									<th>Email</th>
+									<th>Roles</th>
+									<th>Entreprise</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>{{ user.email }}</td>
+									<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+									<td>{{ user.entreprise ? user.entreprise : 'pas d\'entreprise de renseignée'}}</td>
 									</tr>
 								</tbody>
 							</table>
-							<a class="btn btn-sm btn-primary mt-3" type="submit" href="{{ path('user_edit', {'id': user.id}) }}">Editer l'utilisateur</a>
-							<a href="{{ path('user_index') }}" class="btn btn-sm btn-info mt-3">Retour à la liste</a>
-							{{ include('user/_delete_form.html.twig') }}
+							<div class="row">
+								<div class="col-1">
+								{% if template == 'utilisateur' %}
+									<a class="btn btn-sm btn-primary mt-3" type="submit" href="{{ path('user_edit', {'id': user.id}) }}">Editer {{ template }}</a>
+								{% else %}
+								<a class="btn btn-sm btn-primary mt-3" type="submit" href="{{ path('client_edit', {'id': user.id}) }}">Editer {{ template }}</a>
+								{% endif %}
+								</div>
+								<div class="col-2">
+								{% if template == 'utilisateur' %}
+									<a href="{{ path('user_index') }}" class="btn btn-sm btn-info mt-3"><i class="cib-nextdoor"></i></a>
+								{% else %}
+									<a href="{{ path('client_index') }}" class="btn btn-sm btn-info mt-3"><i class="cib-nextdoor"></i></a>
+								{% endif %}
+								<div class="col-1">
+									{{ include('user/_delete_form.html.twig') }}
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -43,3 +61,4 @@
 		</div>
 	</div>
 {% endblock %}
+ 

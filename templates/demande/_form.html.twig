@@ -1,0 +1,4 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }} <button class="btn btn-sm btn-primary mt-3" type="submit">{{ button_label|default('Enregistré') }}</button>
+        <a href="{{ path('demande_index') }}" class="btn btn-sm btn-info mt-3"><i class="cib-nextdoor"></i></a>
+{{ form_end(form) }}
