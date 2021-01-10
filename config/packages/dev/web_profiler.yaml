@@ -1,6 +1,7 @@
 web_profiler:
     toolbar: true
-    intercept_redirects: true
-
+    intercept_redirects: false
+### intercept_redirects: true
+### Test de l'envoie d'email
 framework:
     profiler: { only_exceptions: false }

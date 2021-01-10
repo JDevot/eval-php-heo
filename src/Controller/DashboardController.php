@@ -24,9 +24,9 @@ class DashboardController extends AbstractController
      * @Security("is_granted('ROLE_ADMIN')")
      *
      */
-    public function index(UserRepository $userRepository, TicketRepository $ticket, DemandeRepository $demande): Response
+    public function index(UserRepository $user, TicketRepository $ticket, DemandeRepository $demande): Response
     {
-        $users = $demande->findAll();
+        $users = $user->findAll();
         $tickets = $ticket->findAll();
         $demandes = $demande->findAll();
         return $this->render('dashboard/index.html.twig', [

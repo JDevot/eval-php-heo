@@ -32,4 +32,6 @@ Compte Client:
 ### Password = azerty
 
 #### VARIABLE D ENVIRONEMENT POUR L ENVOIE D EMAIL A REGLER DANS \config\services.yaml ########
+#### POUR TESTER L ENVOIE D EMAIL ALLER SUR LA PAGE /demande/new et activer dans \config\packages\dev\web_profiler.yaml intercept_redirects: true ###
+#### ENVOYER LE FORMULAIRE UN PETIT EMAIL APPARAIT DANS LA BARRE DE DEBUG EN BAS A DROITE APPUYER DESSUS ###
 
