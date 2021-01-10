@@ -15,6 +15,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
+use Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface;
+
 /**
  * @Route("/user")
  * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_UTILISATEUR')")
@@ -51,7 +53,7 @@ class UserController extends AbstractController
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
      */
-    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);

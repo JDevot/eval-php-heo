@@ -23,18 +23,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class DemandeController extends AbstractController
 {
     protected $auth;
-
     public function __construct(AuthorizationCheckerInterface $auth)
     {
+        
+        // $this->transport = (new \Swift_SmtpTransport($this->getParameter('mailer.host'), $this->getParameter('mailer.port')));
         $this->auth = $auth;
     }
     /** 
      * @Route("/", name="demande_index", methods={"GET"})
      */
     public function index(DemandeRepository $demandeRepository,  UserRepository $userRepository): Response
-    {     
+    {
         $demandes = $demandeRepository->findAll();
-        foreach($demandes as $demande){
+        foreach ($demandes as $demande) {
             $demande->setUser($userRepository->find($demande->getIdProprietaire()));
         }
         if ($this->auth->isGranted('ROLE_ADMIN')) {
@@ -47,19 +48,41 @@ class DemandeController extends AbstractController
             ]);
         }
     }
-
     /**
      * @Route("/new", name="demande_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,\Swift_Mailer $mailer): Response
     {
         $demande = new Demande();
         $user = $this->getUser();
         $form = $this->createForm(DemandeType::class, $demande);
         $form->handleRequest($request);
-        $demande->addUser($user);
-        $demande->setIdProprietaire($user->getId());
+        /* $transport = (new \Swift_SmtpTransport($this->getParameter('mailer.host'), $this->getParameter('mailer.port')))
+              ->setUsername($this->getParameter('mailer.admin_email'))
+              ->setPassword($this->getParameter('mailer.password'))
+              ->setEncryption($this->getParameter('mailer.encryption'));
+            
+         $mailer = new \Swift_Mailer($transport);
+        A decommenter pour activer l'envoie d'email*/
         if ($form->isSubmitted() && $form->isValid()) {
+            $demande->addUser($user);
+            $demande->setIdProprietaire($user->getId());
+            $message = (new \Swift_Message('Nouveau contact'))
+                // On attribue l'expéditeur
+                ->setFrom($user->getEmail())
+                // On attribue le destinataire
+                ->setTo($this->getParameter('mailer.admin_email'))
+                // On crée le texte avec la vue
+                ->setBody(
+                    $this->renderView(
+                        'email/demande.html.twig',[ 'demande' => $demande,
+                            'email' => $user->getEmail(),
+                        ]
+                    ),
+                    'text/html'
+                )
+            ;
+            $mailer->send($message);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($demande);
             $entityManager->flush();
@@ -76,7 +99,7 @@ class DemandeController extends AbstractController
     /**
      * @Route("/{id}", name="demande_show", methods={"GET"})
      */
-    public function show(Demande $demande,UserRepository $userRepository): Response
+    public function show(Demande $demande, UserRepository $userRepository): Response
     {
         $demande->setUser($userRepository->find($demande->getIdProprietaire()));
         return $this->render('demande/show.html.twig', [
@@ -91,7 +114,7 @@ class DemandeController extends AbstractController
     {
         $form = $this->createForm(DemandeType::class, $demande);
         $form->handleRequest($request);
- 
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 

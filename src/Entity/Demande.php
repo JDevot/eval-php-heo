@@ -59,7 +59,11 @@ class Demande
     {
         return $this->id;
     }
-
+    public function getEmail():?string
+    {
+        dd($this->$this->user->getEmail());
+        return $this->$this->user->getEmail();
+    }
     public function getTitle(): ?string
     {
         return $this->title;

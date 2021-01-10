@@ -30,8 +30,10 @@ class UserType extends AbstractType
             'label' => 'entreprise',
             'attr' => ['class' => 'form-control'],
         ])
-        ->add('actif', CheckboxType::class,[
-            'label' => 'actif',
+        ->add('actif', CheckboxType::class ,[
+            'required' => false,
+            'label_attr' => ['class' => 'form-check-label'],
+            'attr' => ['class' =>'form-check-input'],
         ])
         ->add('plainPassword',  PasswordType::class, [
                 'required' => false,

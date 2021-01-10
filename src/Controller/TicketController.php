@@ -16,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/ticket")
+ * @Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_UTILISATEUR') or is_granted('ROLE_CUSTOMER')")
  */
 class TicketController extends AbstractController
 {

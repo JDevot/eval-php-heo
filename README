@@ -31,4 +31,5 @@ Compte Client:
 ### Email = client@test.com
 ### Password = azerty
 
+#### VARIABLE D ENVIRONEMENT POUR L ENVOIE D EMAIL A REGLER DANS \config\services.yaml ########
 

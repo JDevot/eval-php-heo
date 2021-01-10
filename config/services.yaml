@@ -3,8 +3,13 @@
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+## EMAIL A REMPLIR ##
 parameters:
-
+    mailer.admin_email: 'admin@test.com'
+    mailer.host: 'smtp.gmail.com'
+    mailer.port: '587'
+    mailer.password: 'mdp'
+    mailer.encryption: 'tls'
 services:
     # default configuration for services in *this* file
     _defaults:
